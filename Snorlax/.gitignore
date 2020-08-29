@@ -1,0 +1,7 @@
+.vs
+bin
+obj
+*.csproj.user
+
+# Prevent personal settings from being committed
+Properties/launchSettings.json

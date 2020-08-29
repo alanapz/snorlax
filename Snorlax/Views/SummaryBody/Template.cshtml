@@ -1,0 +1,34 @@
+﻿@using System.Linq
+@using Snorlax.Model
+@model SummaryViewModel
+<p>Hello, au total il y a @Model.NumberOfOverdueIssues tâches en retard et @Model.NumberOfUnassignedIssues tâches non affectées.</p>
+<h2>@Model.NumberOfOverdueIssues Tâches En Retard</h2>
+<table style="font-size: 14px;">
+    <tr>
+        <th style="text-align: left;">User</th>
+        <th style="text-align: left;">Tâches En Retard</th>
+    </tr>
+    @foreach (UserViewModel user in Model.Users.Where(u => u.OverdueIssues.Count > 0).OrderByDescending(u => u.OverdueIssues.Count))
+    {
+        <tr>
+            <td style="padding-right: 30px;">@user.User.Name</td>
+            <td><a href="@user.OverdueIssuesUrl(ViewBag.SonarUrl)">@user.OverdueIssues.Count</a></td>
+        </tr>
+    }
+</table>
+<h2>@Model.NumberOfUnassignedIssues Tâches Non Affectées</h2>
+<table style="font-size: 14px;">
+    <tr>
+        <th style="text-align: left;">Projet</th>
+        <th style="text-align: left;">Nom</th>
+        <th style="text-align: left;">Tâches Non Affectées</th>
+    </tr>
+    @foreach (ProjectViewModel project in Model.Projects.Where(p => p.UnassignedIssues.Count > 0).OrderByDescending(p => p.UnassignedIssues.Count()))
+    {
+        <tr>
+            <td style="padding-right: 30px;">@project.Project.Key</td>
+            <td style="padding-right: 30px;">@project.Project.Name</td>
+            <td><a href="@project.UnassignedIssuesUrl(ViewBag.SonarUrl)">@project.UnassignedIssues.Count</a></td>
+        </tr>
+    }
+</table>

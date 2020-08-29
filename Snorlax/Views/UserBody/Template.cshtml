@@ -1,0 +1,42 @@
+﻿@using Snorlax.Model
+@using Snorlax.Utils
+@model UserViewModel
+<p>Hello @Model.User.Name, vous avez <a href="@Model.OverdueIssuesUrl(ViewBag.SonarUrl)">@Model.OverdueIssues.Count tâches en retard</a> et @Model.UnassignedIssues.Count tâches non affectées.</p>
+<h2><a href="@Model.OverdueIssuesUrl(ViewBag.SonarUrl)">@Model.OverdueIssues.Count Tâches En Retard</a></h2>
+<table style="font-size: 14px; width: 1600px;">
+    <tr>
+        <th style="text-align: left;">Age</th>
+        <th style="text-align: left;">Type</th>
+        <th style="text-align: left;">Fichier</th>
+        <th style="text-align: left;">Message</th>
+    </tr>
+    @foreach (Issue issue in Model.OverdueIssues)
+    {
+        string issueUrl = issue.IssueUrl(ViewBag.SonarUrl);
+        <tr>
+            <td>@issue.DaysOverdue()j</td>
+            <td>@issue.Type?.ToLowerInvariant()</td>
+            <td><a href="@issueUrl">@issue.Component?.Truncate(90)</a></td>
+            <td><a href="@issueUrl">@issue.Message?.Truncate(90)</a></td>
+        </tr>
+    }
+</table>
+<h2>@Model.UnassignedIssues.Count Tâches Non Affectées</h2>
+<table style="font-size: 14px; width: 1600px;">
+    <tr>
+        <th style="text-align: left;">Age</th>
+        <th style="text-align: left;">Type</th>
+        <th style="text-align: left;">Fichier</th>
+        <th style="text-align: left;">Message</th>
+    </tr>
+    @foreach (Issue issue in Model.UnassignedIssues)
+    {
+        string issueUrl = issue.IssueUrl(ViewBag.SonarUrl);
+        <tr>
+            <td>@issue.DaysOverdue()j</td>
+            <td>@issue.Type?.ToLowerInvariant()</td>
+            <td><a href="@issueUrl">@issue.Component?.Truncate(90)</a></td>
+            <td><a href="@issueUrl">@issue.Message?.Truncate(90)</a></td>
+        </tr>
+    }
+</table>
