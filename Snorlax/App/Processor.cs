@@ -52,6 +52,8 @@ namespace Snorlax
 
         public HashSet<string> SummaryRecipients { get; } = new HashSet<string>();
 
+        public HashSet<string> AdminGroups { get; } = new HashSet<string>();
+
         public ErrorHandler? ErrorHandler { get; set; }
 
         private ILog Logger { get; } = LogManager.GetLogger(typeof(Processor));
@@ -297,6 +299,7 @@ namespace Snorlax
                 HashSet<string> groupKeys = groupPermissions
                     .Where(groupPermission => groupPermission.Permissions.Count > 0) // Ignore empty entries
                     .Where(groupPermission => groupPermission.GroupKey != "sonar-administrators") // Ignore admins (otherwise admin would be spammed with details for every project)
+                    .Where(groupPermission => !AdminGroups.Contains(groupPermission.GroupKey)) // See SNLX-1: supplemental admin groups
                     .Select(groupPermission => groupPermission.GroupKey)
                     .ToHashSet();
 
