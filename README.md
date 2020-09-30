@@ -59,6 +59,7 @@ Snorlax is configured purely via environment variables.
 | SNORLAX_IGNORED_RECIPIENTS | Optional | String[] | List of usernames that will -NOT- be notified - Incompatible with SNORLAX_RECIPIENT_FILTER |
 | SNORLAX_SUMMARY | Optional | String[] | If present, a list of e-mail addresses to retrieve summary reports |
 | SNORLAX_VERBOSE | Optional | Boolean | If set to "true", will output trace information to console (false by default) |
+| SNORLAX_ADMIN_GROUPS | Optional | String[] | A list of supplemental groups to be considered "admin groups" and to be ignored (like sonar-administrators) |
 
 ## Customisation
 

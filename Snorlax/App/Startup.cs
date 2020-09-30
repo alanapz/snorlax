@@ -52,6 +52,8 @@ namespace Snorlax
 
             processor.SummaryRecipients.UnionWith((Environment.GetEnvironmentVariable("SNORLAX_SUMMARY") ?? "").Split(',').Where(IsNotNullOrEmpty));
 
+            processor.AdminGroups.UnionWith((Environment.GetEnvironmentVariable("SNORLAX_ADMIN_GROUPS") ?? "").Split(',').Where(IsNotNullOrEmpty));
+
             processor.Process();
         }
 
